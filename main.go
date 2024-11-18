@@ -72,7 +72,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/accueil", http.StatusSeeOther)
 		return
 	}
-
+	println("la")
 	tmpl.ExecuteTemplate(w, "login", nil)
 }
 
@@ -93,8 +93,11 @@ func accueilHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resetGame(pseudo)
-	tmpl.ExecuteTemplate(w, "accueil", nil)
+	tmpl.ExecuteTemplate(w, "accueil", struct {
+		Pseudo string
+	}{
+		Pseudo: pseudo,
+	})
 }
 
 func rulesHandler(w http.ResponseWriter, r *http.Request) {
@@ -108,10 +111,25 @@ func hangmanHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	game := userGames[pseudo]
+	game, exists := userGames[pseudo]
+	if !exists {
+		userGames[pseudo] = &GameState{
+			AttemptsLeft:   10,
+			GuessedLetters: []string{},
+		}
+		game = userGames[pseudo]
+	}
+
 	if game.ChosenWord == "" {
 		difficulty := r.URL.Query().Get("difficulty")
-		game.ChosenWord, _ = pickRandomWord(difficulty)
+		word, err := pickRandomWord(difficulty)
+		if err != nil {
+			http.Error(w, "Erreur lors de la sélection du mot", http.StatusInternalServerError)
+			return
+		}
+		game.ChosenWord = word
+		game.GuessedLetters = []string{}
+		game.AttemptsLeft = 10
 		revealLetters(game.ChosenWord, difficulty, game)
 	}
 
@@ -125,16 +143,52 @@ func hangmanHandler(w http.ResponseWriter, r *http.Request) {
 		GuessedLetters []string
 		AttemptsLeft   int
 		Pseudo         string
+		Difficulty     string
+		LetterPairs    []LetterPair
 	}{
 		ChosenWord:     maskWord(game.ChosenWord, game.GuessedLetters),
 		GuessedLetters: game.GuessedLetters,
 		AttemptsLeft:   game.AttemptsLeft,
 		Pseudo:         pseudo,
+		Difficulty:     r.URL.Query().Get("difficulty"),
+		LetterPairs:    mapToLetterPairs(getLetterStatus(game.GuessedLetters, game.ChosenWord)),
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "game", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+type LetterPair struct {
+	Letter string
+	Status string
+}
+
+func mapToLetterPairs(letterStatus map[string]string) []LetterPair {
+	var pairs []LetterPair
+	alphabet := "ABCDEFGHIJKLMNOPQRSTUVWXYZ" // Ordre fixe
+	for _, letter := range alphabet {
+		strLetter := string(letter)
+		pairs = append(pairs, LetterPair{Letter: strLetter, Status: letterStatus[strLetter]})
+	}
+	return pairs
+}
+
+func getLetterStatus(guessedLetters []string, chosenWord string) map[string]string {
+	letterStatus := make(map[string]string)
+	for _, letter := range "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {
+		strLetter := string(letter)
+		if contains(guessedLetters, strLetter) {
+			if isLetterInWord(strLetter, chosenWord) {
+				letterStatus[strLetter] = "correct"
+			} else {
+				letterStatus[strLetter] = "incorrect"
+			}
+		} else {
+			letterStatus[strLetter] = "unused"
+		}
+	}
+	return letterStatus
 }
 
 func resultHandler(w http.ResponseWriter, r *http.Request) {
@@ -156,7 +210,7 @@ func resultHandler(w http.ResponseWriter, r *http.Request) {
 		ChosenWord: game.ChosenWord,
 		Pseudo:     pseudo,
 	}
-
+	resetGame(pseudo)
 	if err := tmpl.ExecuteTemplate(w, "result", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -222,6 +276,12 @@ func pickRandomWord(difficulty string) (string, error) {
 }
 
 func resetGame(pseudo string) {
+	if _, exists := userGames[pseudo]; !exists {
+		userGames[pseudo] = &GameState{
+			AttemptsLeft:   10,
+			GuessedLetters: []string{},
+		}
+	}
 	game := userGames[pseudo]
 	game.ChosenWord = ""
 	game.GuessedLetters = []string{}

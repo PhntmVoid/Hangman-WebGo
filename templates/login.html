@@ -1,14 +1,25 @@
+{{define "login"}}
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Connexion</title>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/login.css">
 </head>
 <body>
-    <h1>Choisissez un pseudo</h1>
-    {{if .Error}}<p style="color: red;">{{.Error}}</p>{{end}}
-    <form method="POST">
-        <input type="text" name="pseudo" placeholder="Entrez votre pseudo" required>
-        <button type="submit">Jouer</button>
-    </form>
+    <div class="container">
+        <h1>Connexion</h1>
+        <form method="POST" action="/login">
+            <div class="input-container">
+                <input type="text" name="pseudo" placeholder="Entrez votre pseudo">
+            </div>
+            {{if .Error}}
+            <p class="error-message">{{.Error}}</p>
+            {{end}}
+            <button type="submit">Se connecter</button>
+        </form>
+        <a href="/accueil" class="return-button">⬅️ Retour à l'accueil</a>
+    </div>
 </body>
 </html>
+{{end}}
