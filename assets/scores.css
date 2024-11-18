@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+* {
+    cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur626.cur), auto !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(33, 33, 121);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    width: 50%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}

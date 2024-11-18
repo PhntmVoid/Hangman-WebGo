@@ -1,0 +1,91 @@
+{{define "game"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="/static/main.css" rel="stylesheet">
+    <title>Hangman Game</title>
+    <style>
+        .facile { color: lightgreen; }
+        .moyen { color: orange; }
+        .difficile { color: red; }
+    </style>
+</head>
+<body>
+
+<a href="../accueil" class="return-button">⬅️ Retour</a>
+<p id="word-display">{{.ChosenWord}}</p>
+
+<div id="attempts-left" class="vertical-align">
+    <div class="text-container">
+        <p id="guessed-letter">Lettres utilisées : {{.GuessedLetters}}</p>
+    </div>
+    <div class="text-container">
+        <p>Tentatives restantes : <span id="remaining-attempts">{{.AttemptsLeft}}</span></p>
+    </div>
+    <div class="text-container">
+        <p>Difficulté :
+            {{if eq .Difficulty "facile"}}
+                <span class="facile">Facile</span>
+            {{else if eq .Difficulty "moyen"}}
+                <span class="moyen">Moyen</span>
+            {{else if eq .Difficulty "difficile"}}
+                <span class="difficile">Difficile</span>
+            {{end}}
+        </p>
+    </div>
+    <div class="image-container">
+        <img src="/static/ressources/blackboard.jpg" class="blackboard"/>
+        <img src="/static/ressources/hangman{{.AttemptsLeft}}.png" class="large-image"/>
+    </div>
+</div>
+
+<form method="POST" id="guessForm" action="">
+    <div id="keyboard">
+        <div class="row">
+            <button class="icon-letter" type="submit" name="letter" value="A" onclick="handleClick(this)">A</button>
+            <button class="icon-letter" type="submit" name="letter" value="Z" onclick="handleClick(this)">Z</button>
+            <button class="icon-letter" type="submit" name="letter" value="E" onclick="handleClick(this)">E</button>
+            <button class="icon-letter" type="submit" name="letter" value="R" onclick="handleClick(this)">R</button>
+            <button class="icon-letter" type="submit" name="letter" value="T" onclick="handleClick(this)">T</button>
+            <button class="icon-letter" type="submit" name="letter" value="Y" onclick="handleClick(this)">Y</button>
+            <button class="icon-letter" type="submit" name="letter" value="U" onclick="handleClick(this)">U</button>
+            <button class="icon-letter" type="submit" name="letter" value="I" onclick="handleClick(this)">I</button>
+            <button class="icon-letter" type="submit" name="letter" value="O" onclick="handleClick(this)">O</button>
+            <button class="icon-letter" type="submit" name="letter" value="P" onclick="handleClick(this)">P</button>
+        </div>
+        <div class="row">
+            <button class="icon-letter" type="submit" name="letter" value="Q" onclick="handleClick(this)">Q</button>
+            <button class="icon-letter" type="submit" name="letter" value="S" onclick="handleClick(this)">S</button>
+            <button class="icon-letter" type="submit" name="letter" value="D" onclick="handleClick(this)">D</button>
+            <button class="icon-letter" type="submit" name="letter" value="F" onclick="handleClick(this)">F</button>
+            <button class="icon-letter" type="submit" name="letter" value="G" onclick="handleClick(this)">G</button>
+            <button class="icon-letter" type="submit" name="letter" value="H" onclick="handleClick(this)">H</button>
+            <button class="icon-letter" type="submit" name="letter" value="J" onclick="handleClick(this)">J</button>
+            <button class="icon-letter" type="submit" name="letter" value="K" onclick="handleClick(this)">K</button>
+            <button class="icon-letter" type="submit" name="letter" value="L" onclick="handleClick(this)">L</button>
+            <button class="icon-letter" type="submit" name="letter" value="M" onclick="handleClick(this)">M</button>
+        </div>
+        <div class="row">
+            <button class="icon-letter" type="submit" name="letter" value="W" onclick="handleClick(this)">W</button>
+            <button class="icon-letter" type="submit" name="letter" value="X" onclick="handleClick(this)">X</button>
+            <button class="icon-letter" type="submit" name="letter" value="C" onclick="handleClick(this)">C</button>
+            <button class="icon-letter" type="submit" name="letter" value="V" onclick="handleClick(this)">V</button>
+            <button class="icon-letter" type="submit" name="letter" value="B" onclick="handleClick(this)">B</button>
+            <button class="icon-letter" type="submit" name="letter" value="N" onclick="handleClick(this)">N</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const difficulty = urlParams.get('difficulty');
+    document.getElementById('guessForm').setAttribute('action', '/guess?difficulty=' + difficulty);
+
+    
+
+</script>
+
+</body>
+</html>
+{{end}}

@@ -1,0 +1,28 @@
+{{define "Scores"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Scores</title>
+        <link rel="stylesheet" href="/static/styles.css">
+    </head>
+    <body>
+    <h1>Meilleurs Scores</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .}}
+            <tr>
+                <td>{{.}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    </body>
+    </html>
+{{end}}

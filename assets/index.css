@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+* {
+    cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur626.cur), auto !important;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(33, 33, 121);
+    background: linear-gradient(200deg, rgb(33, 33, 121), rgb(33, 33, 121));
+    overflow: hidden;
+}
+
+
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 50px;
+}

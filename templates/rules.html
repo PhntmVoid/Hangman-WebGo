@@ -1,0 +1,26 @@
+{{define "rules"}}
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <link href="/static/rules.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title>Règles du Hangman</title>
+    </head>
+    <body>
+    <a href="../accueil" class="return-button">⬅️ Retour</a>
+    <h1>Règles du Hangman</h1>
+    <div class="rules">
+        <p>Le jeu du Pendu est un jeu où les joueurs tentent de deviner un mot en proposant des lettres.</p>
+        <p>Le jeu se déroule comme suit :</p>
+        <ol>
+            <li>Un mot est choisi au hasard.</li>
+            <li>Le joueur doit deviner le mot en proposant des lettres.</li>
+            <li>Chaque lettre correcte est affichée dans le mot masqué, sinon le joueur perd des tentatives.</li>
+            <li>Le jeu se poursuit jusqu'à ce que le joueur devine le mot ou épuise toutes ses tentatives.</li>
+        </ol>
+        <p>Le joueur gagne s'il devine le mot avant d'épuiser ses tentatives, sinon il perd.</p>
+        <p style="color: green">Bonne chance !</p>
+    </div>
+    </body>
+    </html>
+{{end}}

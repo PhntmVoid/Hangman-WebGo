@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+
+* {
+    cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur626.cur), auto !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box ;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(33, 33, 121);
+}
+
+
+#word-display {
+    text-align: center;
+    font-size:70px;
+    color: white;
+}
+
+.image-container {
+    position: absolute;
+    top: 27%;
+    left: 28%;
+    height: 300px;
+    width: 600px;
+}
+
+.blackboard {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.large-image {
+    position: absolute;
+    top: 12%;
+    left: 40%;
+    height: 250px;
+    width: 250px;
+}
+
+#guessed-letter{
+    font-size: 30px;
+}
+
+#guess-input {
+    margin-bottom: 20px;
+}
+
+#letter {
+    padding: 5px;
+    font-size: 16px;
+}
+
+#attempts-left {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.image-section img {
+    height: 50px;
+    justify-self: end;
+}
+
+ .text-container {
+    margin-top: -15px;
+    margin-bottom: 50px;
+    color: white;
+ }
+
+#guess-input {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#letter {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid green;
+    border-radius: 20px;
+    width: 60px;
+    height: 60px;
+    outline: none;
+}
+
+#letter:hover {
+    border-color: darkgreen;
+}
+
+#keyboard {
+    position: absolute;
+    top: 65%;
+    left: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.icon-letter {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    margin: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.icon-letter:active{
+    background-color: darkgrey;
+}
+
+
+.icon-letter:hover{
+    background-color: darkgrey;
+}
+
+
+.return-button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.return-button:hover {
+    background-color: #333;
+}
