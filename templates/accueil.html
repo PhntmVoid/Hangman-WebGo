@@ -10,6 +10,7 @@
 <body>
 <div class="content">
   <h1 style="color: yellow;">Jeu du Hangman</h1>
+  <p>Connecté en tant que : {{.Pseudo}}</p>
   <div>
     <a class="button" href="/rules">
       <span>Règles</span>
@@ -22,6 +23,11 @@
     </a>
     <a class="button" href="/hangman?difficulty=difficile">
       <span style="color: red">Difficile</span>
+    </a>
+  </div>
+  <div>
+    <a class="button" href="/logout">
+      <span>Se déconnecter</span>
     </a>
   </div>
 </div>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion</title>
+</head>
+<body>
+    <h1>Choisissez un pseudo</h1>
+    {{if .Error}}<p style="color: red;">{{.Error}}</p>{{end}}
+    <form method="POST">
+        <input type="text" name="pseudo" placeholder="Entrez votre pseudo" required>
+        <button type="submit">Jouer</button>
+    </form>
+</body>
+</html>
